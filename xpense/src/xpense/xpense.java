@@ -25,8 +25,20 @@ public class xpense {
 				while (!adding) {
 					System.out.println("Please type your expense too add it too the expense list.");
 					if(in.hasNextDouble()) {
-						addExpense(in.nextDouble());
+						while(in.hasNextDouble()) {
+							addExpense(in.nextDouble());
+							System.out.println("Continue adding expenses or type \"done\" to quit.");
+							if (in.nextLine().toLowerCase().equals("done")) {
+								adding = true;
+							} else {
+								//System.out.println("You must enter either done or another expense in decimal format to continue.");
+							}
+						}
+						//addExpense(in.nextDouble());
+						//System.out.println("Would you like to add another expense? y/n");
+
 						adding = true;
+						System.out.println("Now done adding expenses.");
 					} else {
 						System.out.println("You must enter an expense in \"xx.xx\" format. Please try again.");
 						
