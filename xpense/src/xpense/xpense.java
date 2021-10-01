@@ -59,6 +59,16 @@ public class xpense {
 				}
 			}
 			}
+			if (in.nextLine().toLowerCase().equals("sum")) {
+				if (expenses.size() != 0) {
+					double summed = sumExpenses();
+					
+					System.out.println("Your total expenses are: " + summed + ".");
+					
+				} else {
+					System.out.println("Your expenses are currently empty.");
+				}
+			}
 			if (in.nextLine().toLowerCase().equals("exit")) {
 				System.out.println("Are you sure you want to close the program? y/n");
 				if (in.nextLine().toLowerCase().equals("y")) {
@@ -78,6 +88,14 @@ public class xpense {
 			expenses.remove(expenses.size() - 1);
 			System.out.println("Removed " + removal + " from the list of expenses");
 		}
+		public static double sumExpenses() {
+			double sum = 0;
+			for (int i = 0; i < expenses.size(); i++) {
+				sum += expenses.get(i);
+			}
+			return sum;
+		}
+		
 		
 	}
 
