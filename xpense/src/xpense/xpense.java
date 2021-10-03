@@ -13,7 +13,7 @@ public class xpense {
 		
 		while (running) {
 		//shows the user the available commands
-			String input = in.nextLine();
+			String input = in.next();
 			Double value = in.nextDouble();
 			if (input.equals("cmd")){
 				System.out.println("\"add\" - use this too add an expense to the list of expenses.");
@@ -29,18 +29,19 @@ public class xpense {
 				Boolean adding = false;
 				while (!adding) {
 					System.out.println("Please type your expense too add it too the expense list.");
-					if(in.hasNextDouble()) {
+					if(in.hasNextDouble()){
 						while(in.hasNextDouble()) {
 							addExpense(value);
 							System.out.println("Continue adding expenses or type \"done\" to quit.");
-							if (in.nextLine().toLowerCase().equals("done")) {
-								adding = true;
+							if (input.equals("done")) {
+								break;
+								//adding = true;
 							} else {
 								System.out.println("You must enter either done or another expense in decimal format to continue.");
 							}
 						}
 
-						adding = true;
+						//adding = true;
 						System.out.println("Now done adding expenses.");
 					} else {
 						System.out.println("You must enter an expense in \"xx.xx\" format. Please try again.");
@@ -63,7 +64,7 @@ public class xpense {
 				System.out.println(expenses);
 			}
 			//resets expense list with user confirmation
-			if (in.nextLine().toLowerCase().equals("reset")) {
+			if (input.equals("reset")) {
 				System.out.println("Are you sure you want to reset your entire expense list?  There is no restoring it after this. y/n");				
 				if (input.equals("y")) {
 					expenses.clear();
