@@ -9,13 +9,13 @@ public class xpense {
 	public static Boolean running = true;
 	public static void main(String[] args) {
 
-		System.out.println("What would you like to do? Type \"cmd\" for options.");
+		System.out.println("What would you like to do? Type \"opt\" for options.");
 		
 		while (running) {
 		//shows the user the available commands
-			String input = in.next();
+			String input = in.nextLine();
 			Double value = in.nextDouble();
-			if (input.equals("cmd")){
+		/*	if (input.equals("opt")){
 				System.out.println("\"add\" - use this too add an expense to the list of expenses.");
 				System.out.println("\"removelast\" - use this too remove the last added expense.");
 				System.out.println("\"view\" - use this too view all of your current expenses.");
@@ -23,9 +23,17 @@ public class xpense {
 				System.out.println("\"sum\" - use this to add all of your expenses together.");
 				System.out.println("\"exit\" - use this to close the program.");		
 			}
+			*/
 			
-			
-			switch (input.toLowerCase()){
+			switch (input){
+			case "opt":
+				System.out.println("\"add\" - use this too add an expense to the list of expenses.");
+				System.out.println("\"removelast\" - use this too remove the last added expense.");
+				System.out.println("\"view\" - use this too view all of your current expenses.");
+				System.out.println("\"reset\" - use this too reset your expense list entirely.");
+				System.out.println("\"sum\" - use this to add all of your expenses together.");
+				System.out.println("\"exit\" - use this to close the program.");
+				break;
 			case "add":
 				Boolean adding = false;
 				while (!adding) {
@@ -35,15 +43,15 @@ public class xpense {
 							addExpense(value);
 							System.out.println("Continue adding expenses or type \"done\" to quit.");
 							if (input.equals("done")) {
-								break;
-								//adding = true;
+								//break;
+								adding = true;
 							} else {
 								System.out.println("You must enter either done or another expense in decimal format to continue.");
 							}
 						}
-
-						//adding = true;
+						adding = true;
 						System.out.println("Now done adding expenses.");
+						break;
 					} else {
 						System.out.println("You must enter an expense in \"xx.xx\" format. Please try again.");
 						
@@ -82,6 +90,8 @@ public class xpense {
 				break;
 				default:
 					System.out.println("Some text");
+					running = false;
+					break;
 			}
 			
 				
