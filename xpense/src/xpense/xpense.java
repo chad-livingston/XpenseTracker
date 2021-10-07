@@ -3,6 +3,9 @@ package xpense;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class xpense {
 	//creates an arrayList of user entered input double type values.
@@ -16,10 +19,30 @@ public class xpense {
 	
 	
 	
+	
 	public static void main(String[] args) {
+		System.out.println("Checking for saved expenses.....");
+		try {
+			File mySaveFile = new File("E:\\Git\\LocalXpenseTracker\\xpense\\expense.txt");
+			if (mySaveFile.createNewFile()) {
+				System.out.println("File created: " + mySaveFile.getName());
+			} else {
+				System.out.println("Save file already exists! Loading in save.");
+				//reads save file and saves it into expense arraylist.
+				
+			}
+		}
+		catch (IOException e){
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+		
+		
 
 		System.out.println("What would you like to do? Type \"opt\" for options.");
 		//loops until program finishes.
+		
+		
 		while (true) {
 		
 			String input = in.next();			
@@ -37,7 +60,7 @@ public class xpense {
 			//adds double type values from user input into expense arraylist until done or no double entered.	
 			case "add":
 				Boolean adding = true;
-				System.out.println("Please type your expense too add it too the expense list. Done to stop");				
+				System.out.println("Please type your expense to add it too the expense list. Done to stop");				
 				while (adding) {
 					if (in.hasNextDouble()){
 						Double add = in.nextDouble();
@@ -61,9 +84,10 @@ public class xpense {
 				System.out.println("Are you sure you would like to remove the last entered expense? y/n");
 				String removeConfirm = in.next().toLowerCase();
 				
-				if (removeConfirm.equals("y") && expenses.size() != 0) {
+				if ((removeConfirm.equals("y") || removeConfirm.equals("yes")) && expenses.size() != 0) {
 					removeLast();
-				} else if (removeConfirm.equals("n") || expenses.size() <= 0) {
+				} else if ((removeConfirm.equals("n") || removeConfirm.equals("no")) || expenses.size() <= 0) {
+					
 					System.out.println("Aborting removal of last entered expense.");					
 				} else {
 					System.out.println("If you really would liek to remove the last expense type \"remove\" again and follow the prompts.");
@@ -73,6 +97,7 @@ public class xpense {
 				//views the current list of expenses in arrayform.
 			case "view":
 				System.out.println(expenses);
+				saveFile();
 				break;
 				//logic to reset they expenses arraylist with user confirmation.
 			case "reset":
@@ -143,6 +168,42 @@ public class xpense {
 			//rounds sum of expenses to the nearest hundreth
 			double roundedSum = Math.round(sum * 100.0) / 100.0;
 			return roundedSum;
+		}
+		public static ArrayList<String> convertArrayListToStringFromDouble(ArrayList<Double> doubleList) {
+			ArrayList<String> stringSave = new ArrayList<String>();
+			for (int i = 0; i < doubleList.size(); i++) {
+				stringSave.add(doubleList.get(i).toString());
+			}
+			return stringSave;
+		}
+		public static ArrayList<Double> convertArrayListToDoubleFromString(ArrayList<String> stringList){
+			ArrayList<Double> doubleSave = new ArrayList<Double>();
+			for (int i = 0; i < stringList.size(); i++) {
+				doubleSave.add(Double.parseDouble(stringList.get(i)));
+			}
+			return doubleSave;
+		}
+		
+		public static void saveFile() {
+			
+			ArrayList<String> stringSave = new ArrayList<String>();
+
+			try {
+				FileWriter myWriter = new FileWriter("E:\\Git\\LocalXpenseTracker\\xpense\\expense.txt");
+				for (int i = 0; i < expenses.size(); i++) {
+					stringSave.add(expenses.get(i).toString());
+					for (int x = 0; x < stringSave.size(); x++) {
+						myWriter.write(stringSave.get(x));
+					}
+					myWriter.close();
+				}
+				
+				System.out.println("Successfully wrote to the file");
+			}
+			catch (IOException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+			}
 		}
 		
 		
