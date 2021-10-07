@@ -10,54 +10,43 @@ import java.io.FileWriter;
 public class xpense {
 	//creates an arrayList of user entered input double type values.
 	public static ArrayList<Double> expenses = new ArrayList<Double>();
+	//creates an arrayList of imported string values
 	public static ArrayList<String> importList = new ArrayList<String>();
 	//creates scanner for taking user input.
 	public static Scanner in;
 	//boolean to loop program. exit case switches this value to false; ending the program.
 	public static Boolean running = true;
+	//file path to expense list
 	public static String filePath = "E:\\Git\\LocalXpenseTracker\\xpense\\expense.txt";
+	//budget value;
 	public static double budget = 0;
-	
-	
-	
-	
 	
 	
 	public static void main(String[] args) {
 		System.out.println("Checking for saved expenses.....");
+		//checks if expense file exists. if not it creates one.
 		try {
 			File mySaveFile = new File(filePath);
 			if (mySaveFile.createNewFile()) {
 				System.out.println("File created: " + mySaveFile.getName());
 			} else {
 				System.out.println("Save file already exists! Loading in save.");
-				//importSave();
 				//reads save file and saves it into expense arraylist.
-				
+				importSave();
 			}
 		}
 		catch (IOException e){
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-		/*if (budget == 0) {
-			Double input = in.nextDouble();
-			System.out.println("What would you like to set your budget too?");
-			budget = input;
-		} else {
-			System.out.println("Your budget is currently set to: $" + budget);
-		}*/
-		
-		
-		
-		
 		System.out.println("What would you like to do? Type \"opt\" for options.");
 		//loops until program finishes.
-		
-		
 		while (true) {
+			//creates a new scanner to read user input.
 			in = new Scanner(System.in).useLocale(Locale.US);
-			String input = in.next();			
+			//stores the value of the next input.
+			String input = in.next();	
+			
 			switch(input) {
 			//shows the user the available commands
 			case "opt":
@@ -67,11 +56,14 @@ public class xpense {
 				System.out.println("\"reset\" - use this to reset your expense list entirely.");
 				System.out.println("\"sum\" - use this to add all of your expenses together.");
 				System.out.println("\"budget\" - use this to set your max budget.");
+				System.out.println("\"save\" - use this to save your expense list to a file on your computer.");
+				System.out.println("\"import\" - use this to import the expense list from a previously saved file.");
 				System.out.println("\"exit\" - use this to close the program.");
 				break;
 				
 			//adds double type values from user input into expense arraylist until done or no double entered.	
 			case "add":
+				//loop to add repeatedly instead of one by one.
 				Boolean adding = true;
 				System.out.println("Please type your expense to add it too the expense list. Done to stop");				
 				while (adding) {
@@ -88,12 +80,9 @@ public class xpense {
 							adding = false;
 						}
 					}
-					
 				}			
 				break;
-			case "import":
-				importSave();
-				break;
+				//logic to set a budget in the console. --Needs work done.
 			case "budget":
 				System.out.println("Your current budget is set to: $" + budget + ". What would you like to set it too?");
 					if (in.hasNextDouble()) {
@@ -126,7 +115,7 @@ public class xpense {
 				System.out.println("Here is a list of your expenses: " + expenses);
 				Double h = budget();
 				System.out.println("Budget - Expenses = " + h);
-				//saveFile();
+				System.out.println("DEBUG - Size of expenses: " + expenses.size() + ".");
 				break;
 				//logic to reset they expenses arraylist with user confirmation.
 			case "reset":
@@ -151,8 +140,13 @@ public class xpense {
 					System.out.println("Your expenses are currently empty.");
 				}
 				break;
+				//runs savefile. writes current expense list to specified filePath.
 			case "save":
 				saveFile();
+				break;
+				//imports an expenseList if one exists.
+			case "import":
+				importSave();
 				break;
 				//logic to exit the program with user confirmation. closes the scanner and prints message to user.
 			case "exit":
@@ -201,13 +195,13 @@ public class xpense {
 			double roundedSum = Math.round(sum * 100.0) / 100.0;
 			return roundedSum;
 		}
+		//method to calculate what is left in our budget.
 		public static double budget() {
 			double sum = sumExpenses();
 			double updatedBudget = budget - sum;
-			
 			return updatedBudget;
 		}
-		
+		//takes in a Double ArrayList and converts it to a String ArrayList.
 		public static ArrayList<String> convertArrayListToStringFromDouble(ArrayList<Double> doubleList) {
 			ArrayList<String> stringSave = new ArrayList<String>();
 			for (Double d : doubleList) {
@@ -216,6 +210,7 @@ public class xpense {
 			}
 			return stringSave;
 		}
+		//takes in a String ArrayList and converts it to a Double ArrayList
 		public static ArrayList<Double> convertArrayListToDoubleFromString(ArrayList<String> stringList){
 			ArrayList<Double> doubleSave = new ArrayList<Double>();
 			for (String d : stringList) {
@@ -224,17 +219,17 @@ public class xpense {
 			}
 			return doubleSave;
 		}
-		
+		//Saves the ArrayList of expenses to specified filePath in string format, each entry is on a newline.  If nothing is in the expense array then write nothing.
 		public static void saveFile() {
-			
-			
 			try {
 				FileWriter myWriter = new FileWriter(filePath);
 				ArrayList<String> expensee = convertArrayListToStringFromDouble(expenses);
-				
 				for (int i = 0; i < expensee.size(); i++) {
-					myWriter.write(expensee.get(i));
-					myWriter.write("\n");			
+					if (expenses.size() == 0) {
+						myWriter.write("");
+					}else {
+						myWriter.write(expensee.get(i)+ "\n");	
+					}
 				}
 				myWriter.close();				
 				System.out.println("Successfully saved to " + filePath);
@@ -244,6 +239,7 @@ public class xpense {
 				e.printStackTrace();
 			}
 		}
+		//imports save from specified filePath then reads the strings in file and copies strings into expenses ArrayList. Calls convert string to double to convert input at the same time.
 		public static void importSave() {
 			try {
 				File mySave = new File(filePath);
@@ -253,16 +249,10 @@ public class xpense {
 				}
 				expenses = convertArrayListToDoubleFromString(importList);
 				System.out.println("You\'ve imported an expense list with " + expenses);
-				//in.close();
-				
+								
 			} catch (IOException e) {
 				System.out.println("An error occurred.");
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
 	}
-
-
