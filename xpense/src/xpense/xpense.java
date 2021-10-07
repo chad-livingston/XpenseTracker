@@ -10,8 +10,9 @@ import java.io.FileWriter;
 public class xpense {
 	//creates an arrayList of user entered input double type values.
 	public static ArrayList<Double> expenses = new ArrayList<Double>();
+	public static ArrayList<String> importList = new ArrayList<String>();
 	//creates scanner for taking user input.
-	public static Scanner in = new Scanner(System.in).useLocale(Locale.US);
+	public static Scanner in;
 	//boolean to loop program. exit case switches this value to false; ending the program.
 	public static Boolean running = true;
 	public static String filePath = "E:\\Git\\LocalXpenseTracker\\xpense\\expense.txt";
@@ -49,13 +50,13 @@ public class xpense {
 		
 		
 		
-
+		
 		System.out.println("What would you like to do? Type \"opt\" for options.");
 		//loops until program finishes.
 		
 		
 		while (true) {
-		
+			in = new Scanner(System.in).useLocale(Locale.US);
 			String input = in.next();			
 			switch(input) {
 			//shows the user the available commands
@@ -246,14 +247,13 @@ public class xpense {
 		public static void importSave() {
 			try {
 				File mySave = new File(filePath);
-				Scanner myReader = new Scanner(mySave);
-				ArrayList<String> importList = new ArrayList<String>();
-				while (myReader.hasNextLine()) {
-					importList.add(myReader.nextLine());
-					expenses = convertArrayListToDoubleFromString(importList);
-					System.out.println("You\'ve imported an expense list with " + expenses);
+				in = new Scanner(mySave);
+				while (in.hasNextLine()) {
+					importList.add(in.nextLine());
 				}
-				myReader.close();
+				expenses = convertArrayListToDoubleFromString(importList);
+				System.out.println("You\'ve imported an expense list with " + expenses);
+				//in.close();
 				
 			} catch (IOException e) {
 				System.out.println("An error occurred.");
