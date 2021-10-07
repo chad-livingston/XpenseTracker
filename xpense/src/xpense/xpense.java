@@ -26,10 +26,10 @@ public class xpense {
 			switch(input) {
 			//shows the user the available commands
 			case "opt":
-				System.out.println("\"add\" - use this too add an expense to the list of expenses.");
-				System.out.println("\"remove\" - use this too remove the last added expense.");
-				System.out.println("\"view\" - use this too view all of your current expenses.");
-				System.out.println("\"reset\" - use this too reset your expense list entirely.");
+				System.out.println("\"add\" - use this to add an expense to the list of expenses.");
+				System.out.println("\"remove\" - use this to remove the last added expense.");
+				System.out.println("\"view\" - use this to view all of your current expenses.");
+				System.out.println("\"reset\" - use this to reset your expense list entirely.");
 				System.out.println("\"sum\" - use this to add all of your expenses together.");
 				System.out.println("\"exit\" - use this to close the program.");
 				break;
