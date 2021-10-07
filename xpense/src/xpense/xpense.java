@@ -19,11 +19,12 @@ public class xpense {
 	public static void main(String[] args) {
 
 		System.out.println("What would you like to do? Type \"opt\" for options.");
-		
+		//loops until program finishes.
 		while (true) {
-		//shows the user the available commands
+		
 			String input = in.next();			
 			switch(input) {
+			//shows the user the available commands
 			case "opt":
 				System.out.println("\"add\" - use this too add an expense to the list of expenses.");
 				System.out.println("\"remove\" - use this too remove the last added expense.");
@@ -31,7 +32,9 @@ public class xpense {
 				System.out.println("\"reset\" - use this too reset your expense list entirely.");
 				System.out.println("\"sum\" - use this to add all of your expenses together.");
 				System.out.println("\"exit\" - use this to close the program.");
-				break;			
+				break;
+				
+			//adds double type values from user input into expense arraylist until done or no double entered.	
 			case "add":
 				Boolean adding = true;
 				System.out.println("Please type your expense too add it too the expense list. Done to stop");				
@@ -49,8 +52,11 @@ public class xpense {
 							adding = false;
 						}
 					}
+					
 				}			
 				break;
+				
+			//logic for removing the last expene from expense arraylist with user confirmation.	
 			case "remove":
 				System.out.println("Are you sure you would like to remove the last entered expense? y/n");
 				String removeConfirm = in.next().toLowerCase();
@@ -64,9 +70,11 @@ public class xpense {
 				}
 				
 				break;
+				//views the current list of expenses in arrayform.
 			case "view":
 				System.out.println(expenses);
 				break;
+				//logic to reset they expenses arraylist with user confirmation.
 			case "reset":
 				System.out.println("Are you sure you want to reset your entire expense list?  There is no restoring it after this. y/n");				
 				String confirmExpenseReset = in.next();
@@ -77,10 +85,9 @@ public class xpense {
 						System.out.println("Aborting reset of expenses!");
 					} else {
 						System.out.println("If you really would like to reset your expense list type \"reset\" again.");
-					}
-						
-				
+					}				
 				break;
+				//logic to sum all the expenses added into expense list together.
 			case "sum":
 				if (expenses.size() != 0) {
 					double summed = sumExpenses();
@@ -90,6 +97,7 @@ public class xpense {
 					System.out.println("Your expenses are currently empty.");
 				}
 				break;
+				//logic to exit the program with user confirmation. closes the scanner and prints message to user.
 			case "exit":
 				System.out.println("Are you sure you want to close the program? \"y/n\"");
 				String confirmExit = in.next();
@@ -106,6 +114,7 @@ public class xpense {
 					break;
 				}
 				break;
+				//default to print if input read is not listed.
 			default:
 				System.out.println("Invalid input, Type opt for help.");
 				break;
@@ -115,6 +124,7 @@ public class xpense {
 	}
 	//method to add expenses to the expense list
 		public static void addExpense(double expense) {
+
 			expenses.add(expense);
 			System.out.println("Adding " + expense + " to the list of expenses. Enter another expense if you have one or \"done\" to stop.");
 		}
@@ -130,7 +140,9 @@ public class xpense {
 			for (int i = 0; i < expenses.size(); i++) {
 				sum += expenses.get(i);
 			}
-			return sum;
+			//rounds sum of expenses to the nearest hundreth
+			double roundedSum = Math.round(sum * 100.0) / 100.0;
+			return roundedSum;
 		}
 		
 		
