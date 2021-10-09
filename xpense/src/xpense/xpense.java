@@ -1,5 +1,5 @@
 package xpense;
-
+import xpense.Bank;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -40,6 +40,7 @@ public class xpense {
 			e.printStackTrace();
 		}
 		System.out.println("What would you like to do? Type \"opt\" for options.");
+		Bank bank = new Bank();
 		//loops until program finishes.
 		while (true) {
 			//creates a new scanner to read user input.
@@ -63,18 +64,30 @@ public class xpense {
 			case "bank":
 				System.out.println("Welcome to your bank! What would you like to do? \"opt\" for options.");
 				String bankIn = in.next();
-				Bank bank = new Bank();
 				
+				/*if (bank.getBalance() == 0) {
+					
+					
+				}*/
+				
+				//Boolean banking = true;
+				while (true) {
 				switch (bankIn) {
 				case "opt":
 					System.out.println("\"balance\" - use this to check your current account balances.");
-					System.out.println("\"create\" - use this to create a new bank account");
+					System.out.println("\"create\" - use this to create a new bank account.");
+					System.out.println("\"add\" - use this to add funds into bank account.");
+					System.out.println("\"remove\" - use this to remove funds from bank account.");
+					System.out.println("\"delete\" - use this to delete an account.");
+					System.out.println("\"exit\" - use this to close the bank section.");
 					break;
 				case "add":
 					System.out.println("How much would you like to add to the bank account?");
 					if (in.hasNextDouble()) {
 						double add = in.nextDouble();
-						bank.addFunds(add);						
+						bank.addFunds(add);
+						double bal = bank.getBalance();
+						System.out.println("Successfully added $" + " to your bank account. Your new balance is $" + bal + ".");
 					} else {
 						System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
 					}
@@ -87,16 +100,27 @@ public class xpense {
 					} else {
 						System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
 					}
+				case "balance":
+					double bal = bank.getBalance();
+					System.out.println("You account balance is $" + bal + ".");
+					break;
+				case "create":
+					System.out.println("work in progress!");
+					break;
+				case "delete":
+					System.out.println("work in progress!");
+					break;
+				case "exit":
+					System.out.println("Exiting banking section.");
+					//banking = false;
 					break;
 				default:
 					System.out.println("Sorry you didn't enter a valid bank command. Aborting bank.");
 					break;
 				}
-				
-				bank.setBalance(4000);
-				bank.getBalance();
 				break;
-				
+			}
+				break;				
 			//adds double type values from user input into expense arraylist until done or no double entered.	
 			case "add":
 				//loop to add repeatedly instead of one by one.

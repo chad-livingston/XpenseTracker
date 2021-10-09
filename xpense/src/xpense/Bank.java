@@ -5,27 +5,18 @@ public class Bank {
 	
 	public double setBalance(double amountToAdd) {
 		double setBalance = balance + amountToAdd;
-		balance = setBalance;
+		setBalance = balance;
 		return setBalance;
 	}
-	
 	public double getBalance() {
 		double getBalance = balance;
-		System.out.print("Your bank balance is: $" + getBalance);
+		//System.out.print("Your bank balance is: $" + getBalance);
 		return getBalance;
-		
 	}
-	
-	
-	
-	private void addFunds(double amountToAdd) {
+	public void addFunds(double amountToAdd) {
 		 balance += amountToAdd;
-		
 	}
-	private void removeFunds(double amountToRemove) {
+	public void removeFunds(double amountToRemove) {
 		balance -= amountToRemove;
 	}
-	
-	
-	
 }
