@@ -65,63 +65,67 @@ public class xpense {
 				System.out.println("Welcome to your bank! What would you like to do? \"opt\" for options.");
 				String bankIn = in.next();
 				
-				/*if (bank.getBalance() == 0) {
-					
-					
+				/*if (bank.getBalance() == 0) {	
 				}*/
 				
-				//Boolean banking = true;
-				while (true) {
-				switch (bankIn) {
-				case "opt":
-					System.out.println("\"balance\" - use this to check your current account balances.");
-					System.out.println("\"create\" - use this to create a new bank account.");
-					System.out.println("\"add\" - use this to add funds into bank account.");
-					System.out.println("\"remove\" - use this to remove funds from bank account.");
-					System.out.println("\"delete\" - use this to delete an account.");
-					System.out.println("\"exit\" - use this to close the bank section.");
-					break;
-				case "add":
-					System.out.println("How much would you like to add to the bank account?");
-					if (in.hasNextDouble()) {
-						double add = in.nextDouble();
-						bank.addFunds(add);
+				Boolean banking = true;
+				while (banking) {
+					switch (bankIn) {
+					case "opt":
+						System.out.println("\"balance\" - use this to check your current account balances.");
+						System.out.println("\"create\" - use this to create a new bank account.");
+						System.out.println("\"add\" - use this to add funds into bank account.");
+						System.out.println("\"remove\" - use this to remove funds from bank account.");
+						System.out.println("\"delete\" - use this to delete an account.");
+						System.out.println("\"exit\" - use this to close the bank section.");
+						break;
+					case "add":
+						System.out.println("How much would you like to add to the bank account?");
+						if (in.hasNextDouble()) {
+							double add = in.nextDouble();
+							double bal;
+							bank.addFunds(add);
+							bal = bank.getBalance();
+							System.out.println("Successfully added $" + " to your bank account. Your new balance is $" + bal + ".");
+						} else {
+							System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
+							//banking = false;
+						}
+						break;
+					case "remove":
+						System.out.println("How much would you like to remove from the bank account?");
+						if (in.hasNextDouble()) {
+							double remove = in.nextDouble();
+							bank.removeFunds(remove);
+						} else {
+							System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
+							//banking = false;
+						}
+						break;
+					case "balance":
 						double bal = bank.getBalance();
-						System.out.println("Successfully added $" + " to your bank account. Your new balance is $" + bal + ".");
-					} else {
-						System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
+						System.out.println("You account balance is $" + bal + ".");
+						break;
+					case "create":
+						System.out.println("work in progress!");
+						break;
+					case "delete":
+						System.out.println("work in progress!");
+						break;
+					case "exit":
+						System.out.println("Exiting banking section.");
+						banking = false;
+						break;
+					default:
+						System.out.println("Sorry you didn't enter a valid bank command. Aborting bank.");
+						banking = false;
+						break;
 					}
-					break;
-				case "remove":
-					System.out.println("How much would you like to remove from the bank account?");
-					if (in.hasNextDouble()) {
-						double remove = in.nextDouble();
-						bank.removeFunds(remove);
-					} else {
-						System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
-					}
-				case "balance":
-					double bal = bank.getBalance();
-					System.out.println("You account balance is $" + bal + ".");
-					break;
-				case "create":
-					System.out.println("work in progress!");
-					break;
-				case "delete":
-					System.out.println("work in progress!");
-					break;
-				case "exit":
-					System.out.println("Exiting banking section.");
-					//banking = false;
-					break;
-				default:
-					System.out.println("Sorry you didn't enter a valid bank command. Aborting bank.");
+					//break;
 					break;
 				}
-				break;
-			}
-				break;				
-			//adds double type values from user input into expense arraylist until done or no double entered.	
+					break;			
+				//adds double type values from user input into expense arraylist until done or no double entered.	
 			case "add":
 				//loop to add repeatedly instead of one by one.
 				Boolean adding = true;
@@ -266,8 +270,8 @@ public class xpense {
 			ArrayList<String> stringSave = new ArrayList<String>();
 			for (Double d : doubleList) {
 				stringSave.add(d.toString());
-				//System.out.println("Successfully converted DoubleArray to a StringArray.");
 			}
+			System.out.println("Successfully converted DoubleArray to a StringArray.");
 			return stringSave;
 		}
 		//takes in a String ArrayList and converts it to a Double ArrayList
@@ -275,8 +279,8 @@ public class xpense {
 			ArrayList<Double> doubleSave = new ArrayList<Double>();
 			for (String d : stringList) {
 				doubleSave.add(Double.parseDouble(d));
-				//System.out.println("Successfully converted StringArray to a DoubleArray.");
 			}
+			System.out.println("Successfully converted StringArray to a DoubleArray.");
 			return doubleSave;
 		}
 		//Saves the ArrayList of expenses to specified filePath in string format, each entry is on a newline.  If nothing is in the expense array then write nothing.
