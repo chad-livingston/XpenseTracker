@@ -60,6 +60,42 @@ public class xpense {
 				System.out.println("\"import\" - use this to import the expense list from a previously saved file.");
 				System.out.println("\"exit\" - use this to close the program.");
 				break;
+			case "bank":
+				System.out.println("Welcome to your bank! What would you like to do? \"opt\" for options.");
+				String bankIn = in.next();
+				Bank bank = new Bank();
+				
+				switch (bankIn) {
+				case "opt":
+					System.out.println("\"balance\" - use this to check your current account balances.");
+					System.out.println("\"create\" - use this to create a new bank account");
+					break;
+				case "add":
+					System.out.println("How much would you like to add to the bank account?");
+					if (in.hasNextDouble()) {
+						double add = in.nextDouble();
+						bank.addFunds(add);						
+					} else {
+						System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
+					}
+					break;
+				case "remove":
+					System.out.println("How much would you like to remove from the bank account?");
+					if (in.hasNextDouble()) {
+						double remove = in.nextDouble();
+						bank.removeFunds(remove);
+					} else {
+						System.out.println("Sorry you didn't enter a correct value type. Aborting bank.");
+					}
+					break;
+				default:
+					System.out.println("Sorry you didn't enter a valid bank command. Aborting bank.");
+					break;
+				}
+				
+				bank.setBalance(4000);
+				bank.getBalance();
+				break;
 				
 			//adds double type values from user input into expense arraylist until done or no double entered.	
 			case "add":
