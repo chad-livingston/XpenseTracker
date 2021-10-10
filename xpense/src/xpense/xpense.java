@@ -189,7 +189,9 @@ public class xpense {
 					}
 				
 				break;
-			}
+			
+				}
+			
 				//}
 				/*
 				 * 
@@ -306,13 +308,13 @@ public class xpense {
 				 * 
 				 * 
 				 */
-			case "investment":
-				break;
-			case "exit":
-				System.out.println("Closing the program.");
+				case "investment":
+					break;
+				case "exit":
+					System.out.println("Closing the program.");
 				//close reader here
 				
-				break;
+					break;
 				/*
 				 * 
 				 * 
@@ -324,12 +326,11 @@ public class xpense {
 				 * 
 				 * 
 				 */
-			default:
-				break;
+				default:
+					break;
 				}
 			}
-
-	}
+		}
 	/*
 	 * 
 	 * 
