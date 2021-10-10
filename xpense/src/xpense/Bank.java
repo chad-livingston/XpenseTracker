@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Bank {
 	private double balance = 0;
 	private ArrayList<String> accounts = new ArrayList<String>();
+	private String account = "";
 	
 	public double setBalance(double amountToAdd) {
 		double setBalance = balance + amountToAdd;
@@ -29,10 +30,26 @@ public class Bank {
 	public void getAccounts() {
 		System.out.println("This is your current list of accounts: " + accounts);
 	}
-	public void setAccount() {
-		
+	public String setAccount(String accountName) {
+		String setAccount = "";
+		/*if() {
+			
+		}*/
+		return setAccount;
 	}
-	public void getAccount() {
-		
+	public String getAccount(String accountName) {
+		String getAccount = "";
+		Boolean exists = false;
+		for (int i = 0; i < accounts.size(); i++) {
+			if (accounts.get(i).equals(accountName)) {
+				exists = true;
+				getAccount = accounts.get(i);
+				System.out.println("Found account: " + getAccount);
+			} else {
+				System.out.println("No valid account name was found.");
+			}
+			
+		}
+		return getAccount;
 	}
 }

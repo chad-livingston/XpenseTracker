@@ -1,5 +1,6 @@
 package xpense;
 import xpense.Bank;
+import xpense.Categories;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -23,51 +24,186 @@ public class xpense {
 	
 	
 	public static void main(String[] args) {
-		System.out.println("Checking for saved expenses.....");
-		//checks if expense file exists. if not it creates one.
-		try {
-			File mySaveFile = new File(filePath);
-			if (mySaveFile.createNewFile()) {
-				System.out.println("File created: " + mySaveFile.getName());
-			} else {
-				System.out.println("Save file already exists! Loading in save.");
-				//reads save file and saves it into expense arraylist.
-				importSave();
-			}
-		}
-		catch (IOException e){
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-		System.out.println("What would you like to do? Type \"opt\" for options.");
-		Bank bank = new Bank();
-		//loops until program finishes.
+		/*
+		 * 
+		 * 
+		 * 
+		 * * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		System.out.println("Welcome to the console expense tracker!");
+		System.out.println("This app has several modules included.");
+		System.out.println("Which module would you like to enter?");
+		System.out.println("Expenses");
+		System.out.println("Bank");
+		System.out.println("Budget");
+		System.out.println("Investment");
+		in = new Scanner(System.in);
+		String input = in.next();
 		while (true) {
-			//creates a new scanner to read user input.
-			in = new Scanner(System.in).useLocale(Locale.US);
-			//stores the value of the next input.
-			String input = in.next();	
-			
-			switch(input) {
-			//shows the user the available commands
-			case "opt":
-				System.out.println("\"add\" - use this to add an expense to the list of expenses.");
-				System.out.println("\"remove\" - use this to remove the last added expense.");
-				System.out.println("\"view\" - use this to view all of your current expenses.");
-				System.out.println("\"reset\" - use this to reset your expense list entirely.");
-				System.out.println("\"sum\" - use this to add all of your expenses together.");
-				System.out.println("\"budget\" - use this to set your max budget.");
-				System.out.println("\"save\" - use this to save your expense list to a file on your computer.");
-				System.out.println("\"import\" - use this to import the expense list from a previously saved file.");
-				System.out.println("\"exit\" - use this to close the program.");
+			switch (input) {
+			/*
+			 * 
+			 * 
+			 * EXPENSES MODULE
+			 * 
+			 * 
+			 * 
+			 * 
+			 */
+			case "expenses":
+				
+				//checks if expense file exists. if not it creates one.
+				System.out.println("Checking for saved expenses.....");
+				try {
+					File mySaveFile = new File(filePath);
+					if (mySaveFile.createNewFile()) {
+						System.out.println("File created: " + mySaveFile.getName());
+					} else {
+						System.out.println("Save file already exists! Loading in save.");
+						//reads save file and saves it into expense arraylist.
+						importSave();
+					}
+				}
+				catch (IOException e){
+					System.out.println("An error occurred.");
+					e.printStackTrace();
+				}
+				System.out.println("Welcome to the expense module. What would you like to do? ");
+				expenseOptions();
+				//loops until program finishes.
+				while (true) {
+					//creates a new scanner to read user input.
+					//in = new Scanner(System.in).useLocale(Locale.US);
+					//stores the value of the next input.
+					//String input = in.next();	
+					
+					switch(input.toLowerCase()) {
+					//shows the user the available commands
+					case "opt":
+						expenseOptions();
+						break;
+						//adds double type values from user input into expense arraylist until done or no double entered.	
+					case "add":
+						//loop to add repeatedly instead of one by one.
+						Boolean adding = true;
+						System.out.println("Please type your expense to add it too the expense list. Done to stop");				
+						while (adding) {
+							if (in.hasNextDouble()){
+								Double add = in.nextDouble();
+								addExpense(add);
+							}else if (in.hasNext()) {
+								String done = in.next().toLowerCase();
+								if (done.equals("done")) {
+									System.out.println("Now done adding expenses.");
+									adding = false;
+								} else {
+									System.out.println("Aborting expense adding. Unknown character.");
+									adding = false;
+								}
+							}
+						}			
+						break;
+						//logic for removing the last expene from expense arraylist with user confirmation.	
+					case "remove":
+						System.out.println("Are you sure you would like to remove the last entered expense? y/n");
+						String removeConfirm = in.next().toLowerCase();
+						
+						if ((removeConfirm.equals("y") || removeConfirm.equals("yes")) && expenses.size() != 0) {
+							removeLast();
+						} else if ((removeConfirm.equals("n") || removeConfirm.equals("no")) || expenses.size() <= 0) {
+							
+							System.out.println("Aborting removal of last entered expense.");					
+						} else {
+							System.out.println("If you really would liek to remove the last expense type \"remove\" again and follow the prompts.");
+						}
+						
+						break;
+						//views the current list of expenses in arrayform.
+					case "view":
+						System.out.println("Here is a list of your expenses: " + expenses);
+						Double h = budget();
+						System.out.println("Budget - Expenses = " + h);
+						System.out.println("DEBUG - Size of expenses: " + expenses.size() + ".");
+						break;
+						//logic to reset they expenses arraylist with user confirmation.
+					case "reset":
+						System.out.println("Are you sure you want to reset your entire expense list?  There is no restoring it after this. y/n");				
+						String confirmExpenseReset = in.next();
+						if (confirmExpenseReset.toLowerCase().equals("y")) {
+								expenses.clear();
+								System.out.println("All of your expenses have been cleared!");
+							} else if (confirmExpenseReset.toLowerCase().equals("n")){
+								System.out.println("Aborting reset of expenses!");
+							} else {
+								System.out.println("If you really would like to reset your expense list type \"reset\" again.");
+							}				
+						break;
+						//logic to sum all the expenses added into expense list together.
+					case "sum":
+						if (expenses.size() != 0) {
+							double summed = sumExpenses();
+							System.out.println("Your total expenses are: " + summed + ".");
+							
+						} else {
+							System.out.println("Your expenses are currently empty.");
+						}
+						break;
+						//runs savefile. writes current expense list to specified filePath.
+					case "save":
+						saveFile();
+						break;
+						//imports an expenseList if one exists.
+					case "import":
+						importSave();
+						break;
+						//logic to exit the program with user confirmation. closes the scanner and prints message to user.
+					case "exit":
+						System.out.println("Are you sure you want to close the program? \"y/n\"");
+						String confirmExit = in.next();
+						switch (confirmExit) {
+						case "y":
+							System.out.println("Closing the program.");
+							in.close();
+							break;
+						case "n":
+							System.out.println("Aborting closing of the program.");
+							break;
+						default:
+							System.out.println("If you really wish to exit then type \"exit\" and follow the prompts again.");
+							break;
+						}
+						break;
+					default:
+						//default to print if input read is not listed.
+						System.out.println("Invalid input, Type opt for help.");
+						break;
+					}
+				
 				break;
+			}
+				//}
+				/*
+				 * 
+				 * 
+				 * 
+				 * BANK MODULE
+				 * 
+				 * 
+				 * 
+				 */
 			case "bank":
+				Bank bank = new Bank();
 				System.out.println("Welcome to your bank! What would you like to do? \"opt\" for options.");
 				String bankIn = in.next();
-				
-				/*if (bank.getBalance() == 0) {	
-				}*/
-				
 				Boolean banking = true;
 				while (banking) {
 					switch (bankIn) {
@@ -124,31 +260,27 @@ public class xpense {
 					//break;
 					break;
 				}
-					break;			
-				//adds double type values from user input into expense arraylist until done or no double entered.	
-			case "add":
-				//loop to add repeatedly instead of one by one.
-				Boolean adding = true;
-				System.out.println("Please type your expense to add it too the expense list. Done to stop");				
-				while (adding) {
-					if (in.hasNextDouble()){
-						Double add = in.nextDouble();
-						addExpense(add);
-					}else if (in.hasNext()) {
-						String done = in.next().toLowerCase();
-						if (done.equals("done")) {
-							System.out.println("Now done adding expenses.");
-							adding = false;
-						} else {
-							System.out.println("Aborting expense adding. Unknown character.");
-							adding = false;
-						}
-					}
-				}			
+					//break;
 				break;
+				/*
+				 * 
+				 * 
+				 * 
+				 * BUDGET MODULE
+				 * 
+				 * 
+				 */
 				//logic to set a budget in the console. --Needs work done.
 			case "budget":
-				System.out.println("Your current budget is set to: $" + budget + ". What would you like to set it too?");
+				//Categories category = new Categories();
+				System.out.println("Welcome to the budget module of this app! \"opt\" for more options.");
+				String budgetIn = in.next();
+				switch(budgetIn) {
+				case "opt":
+					System.out.println("\"budget\" - use this to view/edit your max budget.");
+					break;
+				case "budget":
+					System.out.println("Your current budget is set to: $" + budget + ". What would you like to set it too?");
 					if (in.hasNextDouble()) {
 						double setBudget = in.nextDouble();
 						budget = setBudget;
@@ -156,87 +288,61 @@ public class xpense {
 					} else {
 						System.out.println("You must enter a valid double to set your budget.");
 					}
-
-				break;
-				
-			//logic for removing the last expene from expense arraylist with user confirmation.	
-			case "remove":
-				System.out.println("Are you sure you would like to remove the last entered expense? y/n");
-				String removeConfirm = in.next().toLowerCase();
-				
-				if ((removeConfirm.equals("y") || removeConfirm.equals("yes")) && expenses.size() != 0) {
-					removeLast();
-				} else if ((removeConfirm.equals("n") || removeConfirm.equals("no")) || expenses.size() <= 0) {
-					
-					System.out.println("Aborting removal of last entered expense.");					
-				} else {
-					System.out.println("If you really would liek to remove the last expense type \"remove\" again and follow the prompts.");
-				}
-				
-				break;
-				//views the current list of expenses in arrayform.
-			case "view":
-				System.out.println("Here is a list of your expenses: " + expenses);
-				Double h = budget();
-				System.out.println("Budget - Expenses = " + h);
-				System.out.println("DEBUG - Size of expenses: " + expenses.size() + ".");
-				break;
-				//logic to reset they expenses arraylist with user confirmation.
-			case "reset":
-				System.out.println("Are you sure you want to reset your entire expense list?  There is no restoring it after this. y/n");				
-				String confirmExpenseReset = in.next();
-				if (confirmExpenseReset.toLowerCase().equals("y")) {
-						expenses.clear();
-						System.out.println("All of your expenses have been cleared!");
-					} else if (confirmExpenseReset.toLowerCase().equals("n")){
-						System.out.println("Aborting reset of expenses!");
-					} else {
-						System.out.println("If you really would like to reset your expense list type \"reset\" again.");
-					}				
-				break;
-				//logic to sum all the expenses added into expense list together.
-			case "sum":
-				if (expenses.size() != 0) {
-					double summed = sumExpenses();
-					System.out.println("Your total expenses are: " + summed + ".");
-					
-				} else {
-					System.out.println("Your expenses are currently empty.");
-				}
-				break;
-				//runs savefile. writes current expense list to specified filePath.
-			case "save":
-				saveFile();
-				break;
-				//imports an expenseList if one exists.
-			case "import":
-				importSave();
-				break;
-				//logic to exit the program with user confirmation. closes the scanner and prints message to user.
-			case "exit":
-				System.out.println("Are you sure you want to close the program? \"y/n\"");
-				String confirmExit = in.next();
-				switch (confirmExit) {
-				case "y":
-					System.out.println("Closing the program.");
-					in.close();
 					break;
-				case "n":
-					System.out.println("Aborting closing of the program.");
+				case "addc":
+					System.out.println("What category would you like to add?");
+					Categories.addCategory(budgetIn);
 					break;
 				default:
-					System.out.println("If you really wish to exit then type \"exit\" and follow the prompts again.");
 					break;
 				}
 				break;
-				//default to print if input read is not listed.
-			default:
-				System.out.println("Invalid input, Type opt for help.");
+				/*
+				 * 
+				 * 
+				 * 
+				 * INVESTMENT MODULE
+				 * 
+				 * 
+				 * 
+				 */
+			case "investment":
 				break;
-					
+			case "exit":
+				System.out.println("Closing the program.");
+				//close reader here
+				
+				break;
+				/*
+				 * 
+				 * 
+				 * 
+				 * 
+				 * DEFAULT
+				 * 
+				 * 
+				 * 
+				 * 
+				 */
+			default:
+				break;
+				}
 			}
-		}	
+
 	}
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * METHODS
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	//method to add expenses to the expense list
 		public static void addExpense(double expense) {
 
@@ -318,5 +424,15 @@ public class xpense {
 				System.out.println("An error occurred.");
 				e.printStackTrace();
 			}
+		}
+		public static void expenseOptions() {
+			System.out.println("\"add\" - use this to add an expense to the list of expenses.");
+			System.out.println("\"remove\" - use this to remove the last added expense.");
+			System.out.println("\"view\" - use this to view all of your current expenses.");
+			System.out.println("\"reset\" - use this to reset your expense list entirely.");
+			System.out.println("\"sum\" - use this to add all of your expenses together.");
+			System.out.println("\"save\" - use this to save your expense list to a file on your computer.");
+			System.out.println("\"import\" - use this to import the expense list from a previously saved file.");
+			System.out.println("\"exit\" - use this to close the expense program.");
 		}
 	}
