@@ -18,7 +18,7 @@ public class xpense {
 	//boolean to loop program. exit case switches this value to false; ending the program.
 	public static Boolean running = true;
 	//file path to expense list
-	public static String filePath = "E:\\Git\\LocalXpenseTracker\\xpense\\expense.txt";
+	public static String filePath = "D:\\Git\\XpenseTracker\\xpense\\expense.txt";
 	//budget value;
 	public static double budget = 0;
 	
@@ -80,13 +80,14 @@ public class xpense {
 				System.out.println("Welcome to the expense module. What would you like to do? ");
 				expenseOptions();
 				//loops until program finishes.
-				while (true) {
+				Boolean expensesLoop = true;
+				while (expensesLoop) {
 					//creates a new scanner to read user input.
 					//in = new Scanner(System.in).useLocale(Locale.US);
 					//stores the value of the next input.
 					//String input = in.next();	
-					
-					switch(input.toLowerCase()) {
+					String expensesIn = in.next();
+					switch(expensesIn.toLowerCase()) {
 					//shows the user the available commands
 					case "opt":
 						expenseOptions();
@@ -171,14 +172,15 @@ public class xpense {
 						String confirmExit = in.next();
 						switch (confirmExit) {
 						case "y":
-							System.out.println("Closing the program.");
-							in.close();
+							System.out.println("Closing the expenses module.");
+							expensesLoop = false;
+							//in.close();
 							break;
 						case "n":
-							System.out.println("Aborting closing of the program.");
+							System.out.println("Aborting expense module closure.");
 							break;
 						default:
-							System.out.println("If you really wish to exit then type \"exit\" and follow the prompts again.");
+							System.out.println("If you really wish to exit the expenses module then type \"exit\" and follow the prompts again.");
 							break;
 						}
 						break;
@@ -280,7 +282,7 @@ public class xpense {
 				switch(budgetIn) {
 				case "opt":
 					System.out.println("\"budget\" - use this to view/edit your max budget.");
-					break;
+					//break;
 				case "budget":
 					System.out.println("Your current budget is set to: $" + budget + ". What would you like to set it too?");
 					if (in.hasNextDouble()) {
@@ -290,11 +292,11 @@ public class xpense {
 					} else {
 						System.out.println("You must enter a valid double to set your budget.");
 					}
-					break;
+					//break;
 				case "addc":
 					System.out.println("What category would you like to add?");
 					Categories.addCategory(budgetIn);
-					break;
+					//break;
 				default:
 					break;
 				}
