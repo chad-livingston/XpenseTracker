@@ -18,7 +18,7 @@ public class xpense {
 	//boolean to loop program. exit case switches this value to false; ending the program.
 	public static Boolean running = true;
 	//file path to expense list
-	public static String filePath = "D:\\Git\\XpenseTracker\\xpense\\expense.txt";
+	public static String filePath = "E:\\Git\\LocalXpenseTracker\\xpense\\expense.txt";
 	//budget value;
 	public static double budget = 0;
 	
@@ -47,9 +47,9 @@ public class xpense {
 		System.out.println("Budget");
 		System.out.println("Investment");
 		in = new Scanner(System.in);
-		String input = in.next();
+		
 		while (true) {
-			switch (input) {
+			switch (strInput()) {
 			/*
 			 * 
 			 * 
@@ -77,19 +77,18 @@ public class xpense {
 					System.out.println("An error occurred.");
 					e.printStackTrace();
 				}
-				System.out.println("Welcome to the expense module. What would you like to do? ");
+				System.out.println("\nWelcome to the expense module. What would you like to do? ");
 				expenseOptions();
 				//loops until program finishes.
 				Boolean expensesLoop = true;
+				String expensesInput = strInput();
 				while (expensesLoop) {
-					//creates a new scanner to read user input.
-					//in = new Scanner(System.in).useLocale(Locale.US);
 					//stores the value of the next input.
-					//String input = in.next();	
-					String expensesIn = in.next();
-					switch(expensesIn.toLowerCase()) {
+					
+					switch(expensesInput) {
 					//shows the user the available commands
 					case "opt":
+						
 						expenseOptions();
 						break;
 						//adds double type values from user input into expense arraylist until done or no double entered.	
@@ -98,23 +97,36 @@ public class xpense {
 						Boolean adding = true;
 						System.out.println("Please type your expense to add it too the expense list. Done to stop");				
 						while (adding) {
+							//checks if scanner in has a double value if yes, adds the double entered into expense arraylist.
 							if (in.hasNextDouble()){
-								Double add = in.nextDouble();
-								addExpense(add);
+								//Double add = in.nextDouble();
+								addExpense(dblInput());
+								//if done is entered then done adding expenses. close loop.
 							}else if (in.hasNext()) {
-								String done = in.next().toLowerCase();
-								if (done.equals("done")) {
+								//String done = in.next().toLowerCase();
+								if (strInput().equals("done")) {
 									System.out.println("Now done adding expenses.");
 									adding = false;
 								} else {
 									System.out.println("Aborting expense adding. Unknown character.");
 									adding = false;
 								}
+							}else {
+								System.out.println("Please try entering your value in \"xx.xx\" format.");
 							}
 						}			
 						break;
+					} //closes expenses switch
+				}//closes while expensesLoop
+				
+					
+					
+					
+	//start			
+					
+					
 						//logic for removing the last expene from expense arraylist with user confirmation.	
-					case "remove":
+					/*case "remove":
 						System.out.println("Are you sure you would like to remove the last entered expense? y/n");
 						String removeConfirm = in.next().toLowerCase();
 						
@@ -166,7 +178,7 @@ public class xpense {
 					case "import":
 						importSave();
 						break;
-						//logic to exit the program with user confirmation. closes the scanner and prints message to user.
+						//logic to exit the program with user confirmation. closes the expense loop and prints message to user.
 					case "exit":
 						System.out.println("Are you sure you want to close the program? \"y/n\"");
 						String confirmExit = in.next();
@@ -188,11 +200,10 @@ public class xpense {
 						//default to print if input read is not listed.
 						System.out.println("Invalid input, Type opt for help.");
 						break;
-					}
+					
+	end			*/
+					
 				
-				break;
-			
-				}
 			
 				//}
 				/*
@@ -207,10 +218,9 @@ public class xpense {
 			case "bank":
 				Bank bank = new Bank();
 				System.out.println("Welcome to your bank! What would you like to do? \"opt\" for options.");
-				String bankIn = in.next();
 				Boolean banking = true;
 				while (banking) {
-					switch (bankIn) {
+					switch (strInput()) {
 					case "opt":
 						System.out.println("\"balance\" - use this to check your current account balances.");
 						System.out.println("\"create\" - use this to create a new bank account.");
@@ -222,9 +232,8 @@ public class xpense {
 					case "add":
 						System.out.println("How much would you like to add to the bank account?");
 						if (in.hasNextDouble()) {
-							double add = in.nextDouble();
 							double bal;
-							bank.addFunds(add);
+							bank.addFunds(dblInput());
 							bal = bank.getBalance();
 							System.out.println("Successfully added $" + " to your bank account. Your new balance is $" + bal + ".");
 						} else {
@@ -437,5 +446,13 @@ public class xpense {
 			System.out.println("\"save\" - use this to save your expense list to a file on your computer.");
 			System.out.println("\"import\" - use this to import the expense list from a previously saved file.");
 			System.out.println("\"exit\" - use this to close the expense program.");
+		}
+		public static String strInput() {
+			String strInput = in.next();
+			return strInput;
+		}
+		public static Double dblInput() {
+			double dblInput = in.nextDouble();
+			return dblInput;
 		}
 	}
