@@ -389,7 +389,7 @@ public class xpense {
 			for (Double d : doubleList) {
 				stringSave.add(d.toString());
 			}
-			System.out.println("Successfully converted DoubleArray to a StringArray.");
+			//System.out.println("Successfully converted DoubleArray to a StringArray.");
 			return stringSave;
 		}
 		//takes in a String ArrayList and converts it to a Double ArrayList
@@ -398,7 +398,7 @@ public class xpense {
 			for (String d : stringList) {
 				doubleSave.add(Double.parseDouble(d));
 			}
-			System.out.println("Successfully converted StringArray to a DoubleArray.");
+			//System.out.println("Successfully converted StringArray to a DoubleArray.");
 			return doubleSave;
 		}
 		//Saves the ArrayList of expenses to specified filePath in string format, each entry is on a newline.  If nothing is in the expense array then write nothing.
@@ -430,6 +430,7 @@ public class xpense {
 					importList.add(in.nextLine());
 				}
 				expenses = convertArrayListToDoubleFromString(importList);
+				
 				System.out.println("You\'ve imported an expense list with " + expenses);
 								
 			} catch (IOException e) {
@@ -448,8 +449,12 @@ public class xpense {
 			System.out.println("\"exit\" - use this to close the expense program.");
 		}
 		public static String strInput() {
-			String strInput = in.next();
-			return strInput;
+			
+			if (in.hasNext()) {
+				String strInput = in.next();
+				return strInput;
+			}
+			return "";
 		}
 		public static Double dblInput() {
 			double dblInput = in.nextDouble();

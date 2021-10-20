@@ -1,4 +1,11 @@
-switch(expensesIn) {
+package xpense;
+
+
+
+
+class test {
+	public void testing () {
+/*switch(expensesIn) {
 					//shows the user the available commands
 					case "opt":
 						expenseOptions();
@@ -105,4 +112,6 @@ switch(expensesIn) {
 						break;
 					}
 			
-				}
+}*/
+}
+}
