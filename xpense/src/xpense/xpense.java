@@ -39,27 +39,32 @@ public class xpense {
 				System.out.println("Investment");
 				break;
 //********************************************************************* EXPENSES MODULE ***************************************************************************************
+			case "e":
 			case "expenses":
 				expenses expense = new expenses();
 				expense.expenseModule();
 				break;
 //********************************************************************* BANK MODULE ***************************************************************************************
+			case "ba":
 			case "bank":
 				Bank bank = new Bank();
 				bank.bankModule();
 				break;
 //********************************************************************* BUDGET MODULE ***************************************************************************************
+			case "bu":
 			case "budget":
 				//Categories category = new Categories();
 				Budget budget = new Budget();
 				budget.budgetModule();
 				break;
 //********************************************************************* INVESTMENT MODULE ***************************************************************************************
+			case "i":
 			case "investment":
 				Investments investment = new Investments();
 				investment.investmentModule();
 				break;
 //********************************************************************* EXIT PROGRAM ***************************************************************************************					
+			case "c":
 			case "exit":
 				System.out.println("Closing the program.");
 				//close reader here
