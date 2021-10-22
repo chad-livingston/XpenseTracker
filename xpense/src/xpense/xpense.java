@@ -86,7 +86,7 @@ public class xpense {
 			}
 			return "String not Found.";
 		}
-		public static Double dblInput() {
+		public static double dblInput() {
 			double dblInput = in.nextDouble();
 			return dblInput;
 		}
