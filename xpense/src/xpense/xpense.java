@@ -69,6 +69,7 @@ public class xpense {
 				System.out.println("Closing the program.");
 				//close reader here
 				in.close();
+
 				break;
 //********************************************************************* DEFFAULT MODULE SELECTION ***************************************************************************************
 			default:
