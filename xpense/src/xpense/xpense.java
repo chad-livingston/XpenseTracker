@@ -62,6 +62,7 @@ public class xpense {
                     System.out.println("Exit to close the module.");
                     while (investModule) {
                         String input = in.nextLine().toLowerCase();
+                        ArrayList<Investments> stocks = new ArrayList<>();
                         switch (input) {
                             case "opt":
                                 System.out.println("\"add\" - to add a stock purchase to the list of purchases.");
@@ -69,22 +70,33 @@ public class xpense {
                                 break;
                             case "a":
                             case "add stock":
+                                boolean adding = true;
                                 System.out.println("Add a stock to the list.");
-                                System.out.println("Which symbol to add?");
-                                String symbol = in.nextLine().toLowerCase();
-                                System.out.println("How many shares were bought?");
-                                Double userBoughtCount = in.nextDouble();
-                                System.out.println("How much paid per share?");
-                                Double userBoughtPrice = in.nextDouble();
-                                Investments addStock = new Investments(symbol, userBoughtCount, userBoughtPrice);
-
-
+                                //ArrayList<Investments> stocks = new ArrayList<>();
+                                while(true) {
+                                    System.out.println("Which symbol to add?");
+                                    String symbol = in.nextLine().toLowerCase();
+                                    System.out.println("How many shares were bought?");
+                                    Double userBoughtCount = Double.parseDouble(in.nextLine());
+                                    System.out.println("How much paid per share?");
+                                    Double userBoughtPrice = Double.parseDouble(in.nextLine());
+                                    stocks.add(new Investments(symbol, userBoughtCount, userBoughtPrice));
+                                    break;
+                                }
+                                System.out.println("done adding stocks.");
                                 break;
                             case "c":
                             case "cost":
                                 System.out.println("Which symbol would you like to calculate cost basis for?");
                                 String userSymbolToCalculate = in.nextLine();
-                                
+
+                                break;
+                            case "v":
+                            case "view":
+                                System.out.println(stocks.size());
+                                for (Investments stock : stocks){
+                                    System.out.println(stock);
+                                }
                                 break;
                             case "exit":
 

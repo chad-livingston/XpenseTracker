@@ -8,7 +8,6 @@ public class Investments {
     private double boughtCount;
     private String stockSymbol;
     private double costBasis;
-    private ArrayList<Double> stocks = new ArrayList<Double>();
 
     public Investments(String symbol, double boughtCount, double boughtPrice){
         this.stockSymbol = symbol;
@@ -22,14 +21,14 @@ public class Investments {
     public double getBoughtPrice(){
         return boughtPrice;
     }
-    public double getCostBasis(){
+    public double getCostBasis() {
         return costBasis;
-    }
-    public ArrayList getStocks(){
-        return this.stocks;
     }
     public void costBasisCalc(ArrayList stocks){
         double costBasis = boughtPrice / boughtCount;
         this.costBasis = costBasis;
+    }
+    public String toString(){
+        return this.stockSymbol + ": Count: " + this.boughtCount + " : Price: " + this.boughtPrice;
     }
 }
