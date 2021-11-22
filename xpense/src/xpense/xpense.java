@@ -60,20 +60,22 @@ public class xpense {
                     System.out.println("Add Stock");
                     System.out.println("Cost Basis");
                     System.out.println("Exit to close the module.");
+                    ArrayList<Investments> stocks = new ArrayList<>();
                     while (investModule) {
                         String input = in.nextLine().toLowerCase();
-                        ArrayList<Investments> stocks = new ArrayList<>();
+                       // ArrayList<Investments> stocks = new ArrayList<>();
                         switch (input) {
                             case "opt":
                                 System.out.println("\"add\" - to add a stock purchase to the list of purchases.");
                                 System.out.println("\"cost\" - to calculate your current cost basis from the list of stocks.");
                                 break;
                             case "a":
+                            case "add":
                             case "add stock":
                                 //boolean adding = true;
                                 System.out.println("Add a stock to the list.");
                                 //ArrayList<Investments> stocks = new ArrayList<>();
-                                while(true) {
+                                while (true) {
                                     System.out.println("Which symbol to add?");
                                     String symbol = in.nextLine().toLowerCase();
                                     System.out.println("How many shares were bought?");
@@ -93,8 +95,9 @@ public class xpense {
                                 break;
                             case "v":
                             case "view":
-                                System.out.println(stocks.size());
-                                for (Investments stock : stocks){
+                                //System.out.println(stocks.size());
+                                //System.out.println(stocks);
+                                for (Investments stock : stocks) {
                                     System.out.println(stock);
                                 }
                                 break;
