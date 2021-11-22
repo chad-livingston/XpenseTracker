@@ -71,12 +71,7 @@ public class Investments {
 		}//closes while investing loop;
 	}//closes investmentModule() method;
 	
-	
-	public static void addSymbol(String symbol) {	
-			investmentSymbols.add(symbol);
-			System.out.println("Adding " + symbol + " to the list of symbols. Enter another symbol if you have one or \"done\" to stop.");
-		
-	}
+
 	public static void removeSymbol() {
 		
 	}
