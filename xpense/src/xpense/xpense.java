@@ -93,10 +93,22 @@ public class xpense {
                                 String userSymbolToCalculate = in.nextLine();
 
                                 break;
+                            case "r":
+                            case "remove":
+                            case "remove last":
+                                System.out.println("Are you sure you want to remove the last stock added to the list? \"y\" to remove.");
+                                String userInputRemoval = in.nextLine();
+                                if (userInputRemoval.toLowerCase().equals("y") && stocks.size() > 0){
+
+                                    System.out.println("You have removed " + stocks.get(stocks.size() - 1) + " from the list of stock.");
+                                        stocks.remove(stocks.size() - 1);
+                                }
+                                break;
                             case "v":
                             case "view":
                                 //System.out.println(stocks.size());
                                 //System.out.println(stocks);
+                                System.out.println("These are the stocks that are currently in the list:");
                                 for (Investments stock : stocks) {
                                     System.out.println(stock);
                                 }
