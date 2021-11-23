@@ -84,9 +84,9 @@ public class xpense {
                                         break;
                                     }
                                     System.out.println("How many shares were bought?");
-                                    Double userBoughtCount = Double.parseDouble(in.nextLine());
+                                    double userBoughtCount = Double.parseDouble(in.nextLine());
                                     System.out.println("How much paid per share?");
-                                    Double userBoughtPrice = Double.parseDouble(in.nextLine());
+                                    double userBoughtPrice = Double.parseDouble(in.nextLine());
                                     stockTransactions.add(new Investments(symbol, userBoughtCount, userBoughtPrice));
                                 }
                                 System.out.println("Done adding Transactions to the list. You are now back to the home screen of investments module.");
