@@ -94,19 +94,39 @@ public class xpense {
                             case "c":
                             case "cost":
                                 ArrayList<String> stockList= new ArrayList<>();
-
+                                double sumOfUserInputedStockPrice = 0;
+                                double sumOfUserInputedStockCount = 0;
                                 System.out.println(stockList);
                                 System.out.println("Which symbol would you like to calculate cost basis for?");
                                 String userSymbolToCalculate = in.nextLine();
                                 for (Investments list : stockTransactions){
                                     if (list.getStockSymbol().equals(userSymbolToCalculate)){
+                                        //adds all symbols to their own list of strings
                                         stockList.add(list.getStockSymbol());
+                                        //sums together the total price of all stocks purchased for the userInputtedStock
+                                        sumOfUserInputedStockPrice += list.getBoughtPrice() * list.getBoughtCount();
+                                        //sums together the total count of all stocks purchased for the userInputtedStock
+                                        sumOfUserInputedStockCount += list.getBoughtCount();
                                     }
+
 
                                 }
                                 if (userSymbolToCalculate.equals("")){
                                     System.out.println("Closing cost section.");
                                     break;
+                                }
+                                if (sumOfUserInputedStockPrice > 0) {
+                                    System.out.println("The total of price paid for " + userSymbolToCalculate + " is: " + sumOfUserInputedStockPrice);
+                                } else {
+                                    System.out.println("You don't have any stocks in the list matching the symbol you entered.");
+                                }
+                                if (sumOfUserInputedStockCount > 0){
+                                    System.out.println("The total number of shares owned for " + userSymbolToCalculate + " is " + sumOfUserInputedStockCount);
+                                } else {
+                                    System.out.println("You don't have any shares in the symbol entered.");
+                                }
+                                if (sumOfUserInputedStockCount > 0 && sumOfUserInputedStockPrice > 0) {
+                                    System.out.println(costBasis(sumOfUserInputedStockCount,sumOfUserInputedStockPrice));
                                 }
                                 break;
                             case "r":
@@ -115,9 +135,10 @@ public class xpense {
                                 System.out.println("Are you sure you want to remove the last stock added to the list? \"y\" to remove.");
                                 String userInputRemoval = in.nextLine();
                                 if (userInputRemoval.toLowerCase().equals("y") && stockTransactions.size() > 0) {
-
                                     System.out.println("You have removed " + stockTransactions.get(stockTransactions.size() - 1) + " from the list of stock.");
                                     stockTransactions.remove(stockTransactions.size() - 1);
+                                } else {
+                                    System.out.println("Nothing to remove from the list of stock transactions.");
                                 }
                                 break;
                             case "v":
@@ -173,6 +194,10 @@ public class xpense {
         System.out.println("Budget");
         System.out.println("Investments");
         System.out.println("Exit to close program.");
+    }
+    public static double costBasis(double shareCount, double sharePrice){
+        double costBasis = sharePrice / shareCount;
+        return costBasis;
     }
 
 }
