@@ -34,6 +34,6 @@ public class Investments {
     }
 
     public String toString() {
-        return this.stockSymbol.toUpperCase() + ": Count: " + this.boughtCount + " : Price: " + this.boughtPrice;
+        return this.stockSymbol.toUpperCase() + "::::Count: " + this.boughtCount + " : Price: " + this.boughtPrice;
     }
 }

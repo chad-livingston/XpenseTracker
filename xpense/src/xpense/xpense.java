@@ -60,32 +60,35 @@ public class xpense {
                     System.out.println("Add Stock");
                     System.out.println("Cost Basis");
                     System.out.println("Exit to close the module.");
-                    ArrayList<Investments> stocks = new ArrayList<>();
+                    //creates arraylist of Investment Transactions containing Symbol, Count, and Price
+                    ArrayList<Investments> stockTransactions = new ArrayList<>();
                     while (investModule) {
                         String input = in.nextLine().toLowerCase();
-                       // ArrayList<Investments> stocks = new ArrayList<>();
                         switch (input) {
                             case "opt":
-                                System.out.println("\"add\" - to add a stock purchase to the list of purchases.");
-                                System.out.println("\"cost\" - to calculate your current cost basis from the list of stocks.");
+                                System.out.println("\"add\" - to add a stock transaction to the list.");
+                                System.out.println("\"cost\" - to calculate your current cost basis from the list of stockTransactions.");
+                                System.out.println("\"remove\" - to remove the last transaction from the list.");
                                 break;
                             case "a":
                             case "add":
-                            case "add stock":
+                            case "add trans":
                                 //boolean adding = true;
                                 System.out.println("Add a stock to the list.");
-                                //ArrayList<Investments> stocks = new ArrayList<>();
+                                //ArrayList<Investments> stockTransactions = new ArrayList<>();
                                 while (true) {
-                                    System.out.println("Which symbol to add?");
+                                    System.out.println("Which symbol to add? To exit enter a blank line.");
                                     String symbol = in.nextLine().toLowerCase();
+                                    if (symbol.equals("")){
+                                        break;
+                                    }
                                     System.out.println("How many shares were bought?");
                                     Double userBoughtCount = Double.parseDouble(in.nextLine());
                                     System.out.println("How much paid per share?");
                                     Double userBoughtPrice = Double.parseDouble(in.nextLine());
-                                    stocks.add(new Investments(symbol, userBoughtCount, userBoughtPrice));
-                                    break;
+                                    stockTransactions.add(new Investments(symbol, userBoughtCount, userBoughtPrice));
                                 }
-                                System.out.println("done adding stocks.");
+                                System.out.println("Done adding Transactions to the list. You are now back to the home screen of investments module.");
                                 break;
                             case "c":
                             case "cost":
@@ -98,18 +101,18 @@ public class xpense {
                             case "remove last":
                                 System.out.println("Are you sure you want to remove the last stock added to the list? \"y\" to remove.");
                                 String userInputRemoval = in.nextLine();
-                                if (userInputRemoval.toLowerCase().equals("y") && stocks.size() > 0){
+                                if (userInputRemoval.toLowerCase().equals("y") && stockTransactions.size() > 0) {
 
-                                    System.out.println("You have removed " + stocks.get(stocks.size() - 1) + " from the list of stock.");
-                                        stocks.remove(stocks.size() - 1);
+                                    System.out.println("You have removed " + stockTransactions.get(stockTransactions.size() - 1) + " from the list of stock.");
+                                    stockTransactions.remove(stockTransactions.size() - 1);
                                 }
                                 break;
                             case "v":
                             case "view":
-                                //System.out.println(stocks.size());
-                                //System.out.println(stocks);
-                                System.out.println("These are the stocks that are currently in the list:");
-                                for (Investments stock : stocks) {
+                                //System.out.println(stockTransactions.size());
+                                //System.out.println(stockTransactions);
+                                System.out.println("These are the stockTransactions that are currently in the list:");
+                                for (Investments stock : stockTransactions) {
                                     System.out.println(stock);
                                 }
                                 break;
@@ -134,7 +137,7 @@ public class xpense {
                     System.out.println("Closing the program.");
                     in.close();
                     break;
-//********************************************************************* DEFFAULT MODULE SELECTION ***************************************************************************************
+//********************************************************************* DEFAULT MODULE SELECTION ***************************************************************************************
                 default:
                     System.out.println("Unable to determine the proper module to enter.");
                     break;
