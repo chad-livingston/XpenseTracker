@@ -69,6 +69,7 @@ public class xpense {
                                 System.out.println("\"add\" - to add a stock transaction to the list.");
                                 System.out.println("\"cost\" - to calculate your current cost basis from the list of stockTransactions.");
                                 System.out.println("\"remove\" - to remove the last transaction from the list.");
+                                System.out.println("\"view\" - to view the list of transactions currently stored in the list.");
                                 break;
                             case "a":
                             case "add":
@@ -92,9 +93,21 @@ public class xpense {
                                 break;
                             case "c":
                             case "cost":
+                                ArrayList<String> stockList= new ArrayList<>();
+
+                                System.out.println(stockList);
                                 System.out.println("Which symbol would you like to calculate cost basis for?");
                                 String userSymbolToCalculate = in.nextLine();
+                                for (Investments list : stockTransactions){
+                                    if (list.getStockSymbol().equals(userSymbolToCalculate)){
+                                        stockList.add(list.getStockSymbol());
+                                    }
 
+                                }
+                                if (userSymbolToCalculate.equals("")){
+                                    System.out.println("Closing cost section.");
+                                    break;
+                                }
                                 break;
                             case "r":
                             case "remove":
@@ -111,10 +124,18 @@ public class xpense {
                             case "view":
                                 //System.out.println(stockTransactions.size());
                                 //System.out.println(stockTransactions);
-                                System.out.println("These are the stockTransactions that are currently in the list:");
-                                for (Investments stock : stockTransactions) {
-                                    System.out.println(stock);
+                                if (stockTransactions.size() > 0) {
+                                    System.out.println("These are the stockTransactions that are currently in the list:");
+                                    for (Investments stock : stockTransactions) {
+                                        System.out.println(stock);
+                                    }
+                                } else {
+                                    System.out.println("You currently have no transactions added to the list.");
                                 }
+                                break;
+                            case "clear":
+                                System.out.println("Clearing all transactions from the list.");
+                                stockTransactions.clear();
                                 break;
                             case "exit":
 
@@ -139,7 +160,7 @@ public class xpense {
                     break;
 //********************************************************************* DEFAULT MODULE SELECTION ***************************************************************************************
                 default:
-                    System.out.println("Unable to determine the proper module to enter.");
+                    System.out.println("Unable to determine the proper module to enter. Please try another command or \"module\" for help.");
                     break;
             }
         }
