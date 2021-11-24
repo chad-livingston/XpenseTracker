@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Investments {
-    private final double boughtPrice;
-    private final double boughtCount;
-    private final String stockSymbol;
+    private double boughtPrice;
+    private double boughtCount;
+    private String stockSymbol;
     private double costBasis;
 
     public Investments(String symbol, double boughtCount, double boughtPrice) {

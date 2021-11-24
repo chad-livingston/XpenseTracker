@@ -7,6 +7,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class expenses {
+    private double expenseCost;
+    private String storeName;
+    private String description;
+    private String category;
 
-
+    public expenses(String name, Double cost){
+        this.storeName  = name;
+        this.expenseCost = cost;
+        this.description = "no description";
+        this.category = "none specified";
+    }
+    public String getStoreName(){
+        return storeName;
+    }
+    public Double getExpenseCost(){
+        return expenseCost;
+    }
+    public String toString(){
+        return storeName + "," + expenseCost + "," + category + "," + description;
+    }
 }
