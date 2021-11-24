@@ -40,6 +40,25 @@ public class xpense {
 //********************************************************************* EXPENSES MODULE ***************************************************************************************
                 case "e":
                 case "expenses":
+                    boolean expenseModule = true;
+                    System.out.println("Welcome to the expenses module! ");
+                    System.out.print("Where would you like to begin?");
+                    expenseModuleListing();
+                    ArrayList<expenses> expenses = new ArrayList<>();
+                    while (expenseModule){
+                        String input = in.nextLine().toLowerCase();
+                        switch (input) {
+                            case "opt":
+                                expenseModuleListing();
+                                break;
+                            case "a":
+                            case "add":
+                                break;
+                            default:
+                                System.out.println("Invalid input entered. \"opt\" for help.");
+                                break;
+                        }
+                    }
                     break;
 //********************************************************************* BANK MODULE ***************************************************************************************
                 case "ba":
@@ -194,6 +213,11 @@ public class xpense {
         System.out.println("Budget");
         System.out.println("Investments");
         System.out.println("Exit to close program.");
+    }
+    public static void expenseModuleListing(){
+        System.out.println("\"import\" - use this to import your expenses from a CSV file.");
+        System.out.println("\"add\" - use this to add an expense to the list of expenses.");
+        System.out.println("\"view\" - use this to view the expenses in your list of expenses.");
     }
     public static double costBasis(double shareCount, double sharePrice){
         double costBasis = sharePrice / shareCount;
