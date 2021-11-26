@@ -26,7 +26,6 @@ public class xpense {
         in = new Scanner(System.in);
         //while loop to continuously run program until exit case in switch for strInput().
         while (running) {
-
             //switch for module selection.
             switch (in.nextLine().toLowerCase()) {
                 case "module":
@@ -145,7 +144,7 @@ public class xpense {
                                     System.out.println("You don't have any shares in the symbol entered.");
                                 }
                                 if (sumOfUserInputedStockCount > 0 && sumOfUserInputedStockPrice > 0) {
-                                    System.out.println(costBasis(sumOfUserInputedStockCount,sumOfUserInputedStockPrice));
+                                    System.out.println("Average cost per share: " + costBasis(sumOfUserInputedStockCount,sumOfUserInputedStockPrice));
                                 }
                                 break;
                             case "r":
@@ -208,10 +207,10 @@ public class xpense {
 
     //********************************************************************* METHODS ***************************************************************************************
     public static void moduleListing() {
-        System.out.println("Expenses");
-        System.out.println("Bank");
-        System.out.println("Budget");
-        System.out.println("Investments");
+        System.out.println("\"expenses\" - The expenses module for tracking and monitoring your expense habits.");
+        System.out.println("\"bank\" - The banking module for viewing your bank accounts and seeing your financial health.");
+        System.out.println("\"budget\" - The budget module for creating, viewing a budget to keep you on track for your financial goals.");
+        System.out.println("\"investments\" - The investment module for viewing your investments, and calculating your average cost for stock.");
         System.out.println("Exit to close program.");
     }
     public static void expenseModuleListing(){
