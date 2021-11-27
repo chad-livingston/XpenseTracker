@@ -80,6 +80,7 @@ public class xpense {
                     System.out.println("Exit to close the module.");
                     //creates arraylist of Investment Transactions containing Symbol, Count, and Price
                     ArrayList<Investments> stockTransactions = new ArrayList<>();
+                    ArrayList<String> stockList= new ArrayList<>();
                     while (investModule) {
                         String input = in.nextLine().toLowerCase();
                         switch (input) {
@@ -111,15 +112,19 @@ public class xpense {
                                 break;
                             case "c":
                             case "cost":
-                                ArrayList<String> stockList= new ArrayList<>();
+
                                 double sumOfUserInputedStockPrice = 0;
                                 double sumOfUserInputedStockCount = 0;
+
                                 System.out.println(stockList);
                                 System.out.println("Which symbol would you like to calculate cost basis for?");
                                 String userSymbolToCalculate = in.nextLine();
+
                                 for (Investments list : stockTransactions){
                                     if (list.getStockSymbol().equals(userSymbolToCalculate)){
                                         //adds all symbols to their own list of strings
+
+
                                         stockList.add(list.getStockSymbol());
                                         //sums together the total price of all stocks purchased for the userInputtedStock
                                         sumOfUserInputedStockPrice += list.getBoughtPrice() * list.getBoughtCount();
@@ -167,7 +172,14 @@ public class xpense {
                                     System.out.println("These are the stockTransactions that are currently in the list:");
                                     for (Investments stock : stockTransactions) {
                                         System.out.println(stock);
+                                        for (String element : stockList){
+                                            if (!stockList.contains(element)){
+                                                stockList.add(stock.getStockSymbol());
+                                            }
+                                        }
                                     }
+                                    System.out.println("The symbols you own are: ");
+                                    System.out.println(stockList);
                                 } else {
                                     System.out.println("You currently have no transactions added to the list.");
                                 }
@@ -195,6 +207,7 @@ public class xpense {
                 case "c":
                 case "exit":
                     System.out.println("Closing the program.");
+                    running = false;
                     in.close();
                     break;
 //********************************************************************* DEFAULT MODULE SELECTION ***************************************************************************************
