@@ -40,6 +40,6 @@ public class expenses {
     }
 
     public String toString() {
-        return storeName + "," + expenseCost + "," + category + "," + description;
+        return storeName + "," + expenseCost + "," + category + "," + description + "\n";
     }
 }

@@ -64,6 +64,12 @@ public class xpense {
                                     expenses.add(new expenses(storeName, expenseVal));
                                 }
                                 break;
+                            case "v":
+                            case "view":
+                                if (expenses.size() > 0){
+                                    System.out.println(expenses);
+                                }
+                                break;
                             default:
                                 System.out.println("Invalid input entered. \"opt\" for help.");
                                 break;
