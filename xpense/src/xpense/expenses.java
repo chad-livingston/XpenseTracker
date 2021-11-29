@@ -12,19 +12,34 @@ public class expenses {
     private String description;
     private String category;
 
-    public expenses(String name, Double cost){
-        this.storeName  = name;
+    public expenses(String name, Double cost) {
+        this.storeName = name;
         this.expenseCost = cost;
         this.description = "no description";
         this.category = "none specified";
     }
-    public String getStoreName(){
+
+    public String getStoreName() {
         return storeName;
     }
-    public Double getExpenseCost(){
+    public String getDescription(){
+        return description;
+    }
+    public String setDescription(String description){
+        return this.description = description;
+    }
+    public String getCategory(){
+        return category;
+    }
+    public String setCategory(String category){
+       return this.category = category;
+    }
+
+    public Double getExpenseCost() {
         return expenseCost;
     }
-    public String toString(){
+
+    public String toString() {
         return storeName + "," + expenseCost + "," + category + "," + description;
     }
 }

@@ -52,6 +52,17 @@ public class xpense {
                                 break;
                             case "a":
                             case "add":
+                                while (true){
+                                    System.out.println("Where was the purchase made?");
+                                    String storeName = in.nextLine();
+                                    if (storeName.equals("")){
+                                        break;
+                                    }
+                                    System.out.println("How much was the purchase?");
+                                    Double expenseVal = Double.parseDouble(in.nextLine());
+
+                                    expenses.add(new expenses(storeName, expenseVal));
+                                }
                                 break;
                             default:
                                 System.out.println("Invalid input entered. \"opt\" for help.");
