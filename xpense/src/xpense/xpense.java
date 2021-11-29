@@ -218,6 +218,10 @@ public class xpense {
         System.out.println("\"add\" - use this to add an expense to the list of expenses.");
         System.out.println("\"view\" - use this to view the expenses in your list of expenses.");
     }
+    public static void investmentModuleListing(){
+        System.out.println("");
+        System.out.println("");
+    }
     public static double costBasis(double shareCount, double sharePrice){
         double costBasis = sharePrice / shareCount;
         return costBasis;
