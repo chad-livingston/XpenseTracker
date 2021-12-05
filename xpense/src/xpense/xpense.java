@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class xpense {
@@ -60,7 +61,9 @@ public class xpense {
                                     }
                                     System.out.println("How much was the purchase?");
                                     Double expenseVal = Double.parseDouble(in.nextLine());
-
+                                    if (expenseVal <= 0){
+                                        break;
+                                    }
                                     expenses.add(new expenses(storeName, expenseVal));
                                 }
                                 break;
@@ -70,8 +73,13 @@ public class xpense {
                                     System.out.println(expenses);
                                 }
                                 break;
+                            case "exit":
+                                expenseModule = false;
+                                System.out.println("You are now in module selection. Which module would you like to enter?");
+                                moduleListing();
+                                break;
                             default:
-                                System.out.println("Invalid input entered. \"opt\" for help.");
+                                System.out.println("Unable to determine a selection from this module. \"opt\" for options.");
                                 break;
                         }
                     }
@@ -91,10 +99,7 @@ public class xpense {
                     //toggle for investment module. switches to false when exit is typed in.
                     boolean investModule = true;
                     System.out.println("Welcome to the investments module! ");
-                    System.out.print("Where would you like to go? \n");
-                    System.out.println("Add Stock");
-                    System.out.println("Cost Basis");
-                    System.out.println("Exit to close the module.");
+                    System.out.println("What would you like to do? \"opt\" for options.");
                     //creates arraylist of Investment Transactions containing Symbol, Count, and Price
                     ArrayList<Investments> stockTransactions = new ArrayList<>();
                     ArrayList<String> stockList= new ArrayList<>();
@@ -102,10 +107,7 @@ public class xpense {
                         String input = in.nextLine().toLowerCase();
                         switch (input) {
                             case "opt":
-                                System.out.println("\"add\" - to add a stock transaction to the list.");
-                                System.out.println("\"cost\" - to calculate your current cost basis from the list of stockTransactions.");
-                                System.out.println("\"remove\" - to remove the last transaction from the list.");
-                                System.out.println("\"view\" - to view the list of transactions currently stored in the list.");
+                               investmentModuleListing();
                                 break;
                             case "a":
                             case "add":
@@ -121,8 +123,14 @@ public class xpense {
                                     }
                                     System.out.println("How many shares were bought?");
                                     double userBoughtCount = Double.parseDouble(in.nextLine());
+                                    if (userBoughtCount <= 0){
+                                        break;
+                                    }
                                     System.out.println("How much paid per share?");
                                     double userBoughtPrice = Double.parseDouble(in.nextLine());
+                                    if (userBoughtPrice <= 0){
+                                        break;
+                                    }
                                     stockTransactions.add(new Investments(symbol, userBoughtCount, userBoughtPrice));
                                 }
                                 System.out.println("Done adding Transactions to the list. You are now back to the home screen of investments module.");
@@ -202,11 +210,16 @@ public class xpense {
                                 }
                                 break;
                             case "clear":
-                                System.out.println("Clearing all transactions from the list.");
-                                stockTransactions.clear();
+                                System.out.println("Are you sure you want to clear all the transactions from the list? \"y\" to confirm clear.");
+                                String confirmClear = in.nextLine().toLowerCase();
+                                if (confirmClear.equals("y")){
+                                    System.out.println("Clearing all transactions from the list.");
+                                    stockTransactions.clear();
+                                } else {
+                                    System.out.println("Not clearing any transactions.");
+                                }
                                 break;
                             case "exit":
-
                                 investModule = false;
                                 System.out.println("You are now in module selection.  Which module would you like to enter?");
                                 moduleListing();
@@ -241,16 +254,21 @@ public class xpense {
         System.out.println("\"bank\" - The banking module for viewing your bank accounts and seeing your financial health.");
         System.out.println("\"budget\" - The budget module for creating, viewing a budget to keep you on track for your financial goals.");
         System.out.println("\"investments\" - The investment module for viewing your investments, and calculating your average cost for stock.");
-        System.out.println("Exit to close program.");
+        System.out.println("\"exit\" - to close program.");
     }
     public static void expenseModuleListing(){
         System.out.println("\"import\" - use this to import your expenses from a CSV file.");
         System.out.println("\"add\" - use this to add an expense to the list of expenses.");
         System.out.println("\"view\" - use this to view the expenses in your list of expenses.");
+        System.out.println("\"exit\" - use this to exit the module.");
     }
     public static void investmentModuleListing(){
-        System.out.println("");
-        System.out.println("");
+        System.out.println("\"add\" - use this to add a stock purchase to the list.");
+        System.out.println("\"remove\" - use this to remove the last transaction added.");
+        System.out.println("\"cost\" - use this to calculate the cost basis of a stock.");
+        System.out.println("\"view\" - use this to view all stocks in the list.");
+        System.out.println("\"clear\" - use this to clear the entire list of stock");
+        System.out.println("\"exit\" - use this to exit the module");
     }
     public static double costBasis(double shareCount, double sharePrice){
         double costBasis = sharePrice / shareCount;
