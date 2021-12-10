@@ -32,10 +32,7 @@ public class xpense {
                 case "module":
                     System.out.println("This app has several modules included.");
                     System.out.println("Which module would you like to enter? \n");
-                    System.out.println("Expenses");
-                    System.out.println("Bank");
-                    System.out.println("Budget");
-                    System.out.println("Investment");
+                    moduleListing();
                     break;
 //********************************************************************* EXPENSES MODULE ***************************************************************************************
                 case "e":
@@ -67,6 +64,18 @@ public class xpense {
                                     expenses.add(new expenses(storeName, expenseVal));
                                 }
                                 break;
+                            case "r":
+                            case "remove":
+                                System.out.println("Are you sure you want to remove the last expense added to the list?");
+                                String userConfirmRemove = in.nextLine().toLowerCase();
+                                if (userConfirmRemove.equals("y")){
+                                    System.out.println("Removing " + expenses.get(expenses.size() - 1) + " from the list of expenses.");
+                                    expenses.remove(expenses.size()-1);
+                                }
+                                else {
+                                    System.out.println("Aborting removal of last expense.");
+                                }
+                                break;
                             case "v":
                             case "view":
                                 if (expenses.size() > 0){
@@ -91,6 +100,32 @@ public class xpense {
 //********************************************************************* BUDGET MODULE ***************************************************************************************
                 case "bu":
                 case "budget":
+                    boolean budgetModule = true;
+                    System.out.println("Welcome to the budget module. You are defaulted to have a 0 dollar budget. You should set up your budget amount before anything else.");
+                    budgetOptionListing();
+                    Budget userBudget = new Budget();
+                    while (budgetModule) {
+                        String budgetUserInput = in.nextLine().toLowerCase();
+                        if (budgetUserInput.equals("")) {
+                            budgetModule = false;
+                        }
+                        switch (budgetUserInput) {
+                            case "get":
+                                System.out.println("Your current budget is set to " + userBudget.getBudget());
+                                break;
+                            case "set":
+                                System.out.println("You current budget is set to " + userBudget.getBudget());
+                                System.out.println("What would you like to set your budget to?");
+                                int userInputtedBudget = Integer.valueOf(in.nextLine());
+                                userBudget.setBudget(userInputtedBudget);
+                                System.out.println("Your budget is now " + userBudget.getBudget());
+                                break;
+                            default:
+                                System.out.println("Invalid command entered. Which option would you like to enter?");
+                                budgetOptionListing();
+                                break;
+                        }
+                    }
 
                     break;
 //********************************************************************* INVESTMENT MODULE ***************************************************************************************
@@ -269,6 +304,12 @@ public class xpense {
         System.out.println("\"view\" - use this to view all stocks in the list.");
         System.out.println("\"clear\" - use this to clear the entire list of stock");
         System.out.println("\"exit\" - use this to exit the module");
+    }
+    public static void budgetOptionListing(){
+        System.out.println("\"set\" - use this to set your budget amount.");
+        System.out.println("\"get\" - use this to retrieve the budget you have saved.");
+        System.out.println("\"add\" - use this to add a category to the list for your budget.");
+        System.out.println("\"remove\" - use this to remove the last added category.");
     }
     public static double costBasis(double shareCount, double sharePrice){
         double costBasis = sharePrice / shareCount;
