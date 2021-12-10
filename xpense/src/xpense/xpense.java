@@ -110,6 +110,10 @@ public class xpense {
                             budgetModule = false;
                         }
                         switch (budgetUserInput) {
+                            case "add":
+                                System.out.println("Here is a list of your current categories.");
+                                System.out.println();
+                                break;
                             case "get":
                                 System.out.println("Your current budget is set to " + userBudget.getBudget());
                                 break;
