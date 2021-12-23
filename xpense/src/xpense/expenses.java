@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class expenses {
-    private double expenseCost;
-    private String storeName;
+    private final double expenseCost;
+    private final String storeName;
     private String description;
     private String category;
 
@@ -22,17 +22,21 @@ public class expenses {
     public String getStoreName() {
         return storeName;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public String setDescription(String description){
+
+    public String setDescription(String description) {
         return this.description = description;
     }
-    public String getCategory(){
+
+    public String getCategory() {
         return category;
     }
-    public String setCategory(String category){
-       return this.category = category;
+
+    public String setCategory(String category) {
+        return this.category = category;
     }
 
     public Double getExpenseCost() {

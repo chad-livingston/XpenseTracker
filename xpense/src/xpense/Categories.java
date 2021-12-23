@@ -3,25 +3,27 @@ package xpense;
 import java.util.ArrayList;
 
 public class Categories {
-    private static ArrayList<String> categories = new ArrayList<String>();
-
-    public Categories(String Category) {
-        if (categories.size() <= 0) {
-            this.addCategory(Category);
-        }
-    }
+    private static ArrayList<String> categories = new ArrayList<>();
 
     public void viewCategory() {
 
     }
+    public String getCategoryName(ArrayList categories){
+      //  for (String category : categories){
+       //
+       // }
+        return "";
+    }
 
-    public static void viewAll() {
-        System.out.println(categories);
+    public ArrayList<String> viewAllCategories() {
+        return this.categories;
     }
 
     public static void addCategory(String category) {
-        categories.add(category);
-        System.out.println(category + " added to categories list.");
+        if (categories.size() >= 0) {
+            categories.add(category);
+            System.out.println(category + " added to categories list.");
+        }
     }
 
     public static void removeCategory(String category) {
@@ -32,5 +34,13 @@ public class Categories {
                 System.out.println("The category entered does not match one in the category list to remove.");
             }
         }
+    }
+
+    public String toString(){
+        String returnElements = "";
+        for (String category : categories){
+            returnElements += category;
+        }
+        return returnElements;
     }
 }

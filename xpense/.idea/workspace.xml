@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04e2dace-d56e-43b2-bf65-4ef6a5ea2fef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xpense/Budget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/xpense/Budget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/xpense/xpense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/xpense/xpense.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -35,6 +35,21 @@ public class xpense {
                     moduleListing();
                     break;
 //********************************************************************* EXPENSES MODULE ***************************************************************************************
+                //add expense
+                    //
+                //remove expense
+                    //remove specific
+                    //remove last added
+                //view expenses
+                    //view all
+                    //view category
+                //calculator
+                    //sum all expenses
+                    //sum all in category
+                //exit to module selection
+                //default response if invalid entry.
+
+
                 case "e":
                 case "expenses":
                     boolean expenseModule = true;
@@ -94,16 +109,24 @@ public class xpense {
                     }
                     break;
 //********************************************************************* BANK MODULE ***************************************************************************************
+                //add account
+                //remove account
+                //view accounts
+                    //view all balance
+                    //view specific balance
+
                 case "ba":
                 case "bank":
                     break;
 //********************************************************************* BUDGET MODULE ***************************************************************************************
+                //set budget amount -- default
                 case "bu":
                 case "budget":
                     boolean budgetModule = true;
-                    System.out.println("Welcome to the budget module. You are defaulted to have a 0 dollar budget. You should set up your budget amount before anything else.");
+                    System.out.println("Welcome to the budget module. Default is set to 4000");
                     budgetOptionListing();
                     Budget userBudget = new Budget();
+                    Categories categories = new Categories();
                     while (budgetModule) {
                         String budgetUserInput = in.nextLine().toLowerCase();
                         if (budgetUserInput.equals("")) {
@@ -111,8 +134,35 @@ public class xpense {
                         }
                         switch (budgetUserInput) {
                             case "add":
-                                System.out.println("Here is a list of your current categories.");
-                                System.out.println();
+                                System.out.println("Here is a list of your current categories. Would you like to add a new category?"
+                                + "\n"
+                                + "\"new\" - to create a new category"
+                                + "\n"
+                                + "\"\" - to exit just enter a blank line");
+                                while (true) {
+                                    String userInput = in.nextLine();
+                                    if (userInput.equals("")) {
+                                        System.out.println("Closing.");
+                                        break;
+                                    }
+                                    if (userInput.equals("new")) {
+                                        System.out.println("What is the name of the category you would like to add?");
+                                        userInput = in.nextLine();
+                                        if (!(categories.viewAllCategories().contains(userInput))) {
+                                            System.out.println("Adding " + userInput + " to the category list.");
+                                            categories.addCategory(userInput);
+
+                                        } else {
+                                            System.out.println("Category already on the list. Try");
+                                        }
+                                        break;
+                                    }
+                                    System.out.println(categories.viewAllCategories());
+                                }
+                                break;
+                            case "view":
+                                System.out.println("This is a list of all categories created. Type a category name to see transactions.");
+
                                 break;
                             case "get":
                                 System.out.println("Your current budget is set to " + userBudget.getBudget());
@@ -124,6 +174,13 @@ public class xpense {
                                 userBudget.setBudget(userInputtedBudget);
                                 System.out.println("Your budget is now " + userBudget.getBudget());
                                 break;
+                            case "remove":
+                                System.out.println("");
+                                break;
+                            case "exit":
+                                System.out.println("Now exiting the budget module and entering module selection.");
+                                budgetModule = false;
+                                moduleListing();
                             default:
                                 System.out.println("Invalid command entered. Which option would you like to enter?");
                                 budgetOptionListing();
@@ -273,6 +330,7 @@ public class xpense {
 
                     break;
 //********************************************************************* EXIT PROGRAM ***************************************************************************************
+
                 case "c":
                 case "exit":
                     System.out.println("Closing the program.");
@@ -312,7 +370,7 @@ public class xpense {
     public static void budgetOptionListing(){
         System.out.println("\"set\" - use this to set your budget amount.");
         System.out.println("\"get\" - use this to retrieve the budget you have saved.");
-        System.out.println("\"add\" - use this to add a category to the list for your budget.");
+        System.out.println("\"add\" - use this to add a category to the list for your budget. ");
         System.out.println("\"remove\" - use this to remove the last added category.");
     }
     public static double costBasis(double shareCount, double sharePrice){
